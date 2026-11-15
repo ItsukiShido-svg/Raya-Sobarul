@@ -1,51 +1,3 @@
-<?php
-// Data Produk untuk Katalog Produk (Minimal 5 Produk Logis)
-$katalog_produk = [
-    [
-        "id_barang" => "PRD001",
-        "nama_barang" => "Kemeja Formal Putih Pria",
-        "deskripsi" => "Kemeja kerja formal lengan panjang bahan katun premium, nyaman untuk kuliah dan magang.",
-        "harga" => 135000,
-        "jml_barang" => 25,
-        "gambar_barang" => "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "id_barang" => "PRD002",
-        "nama_barang" => "Tas Ransel Laptop Casual",
-        "deskripsi" => "Tas punggung muat laptop 15.6 inch dilengkapi slot USB charger, cocok untuk mahasiswa.",
-        "harga" => 220000,
-        "jml_barang" => 15,
-        "gambar_barang" => "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "id_barang" => "PRD003",
-        "nama_barang" => "Sepatu Sneakers Hitam Polos",
-        "deskripsi" => "Sneakers kanvas ringan dan tahan lama untuk aktivitas harian kampus maupun santai.",
-        "harga" => 185000,
-        "jml_barang" => 30,
-        "gambar_barang" => "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "id_barang" => "PRD004",
-        "nama_barang" => "Jaket Hoodie Fleece Hitam",
-        "deskripsi" => "Hoodie fleece tebal dan lembut, menjaga tubuh tetap hangat saat lembur ngoding malam.",
-        "harga" => 150000,
-        "jml_barang" => 20,
-        "gambar_barang" => "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "id_barang" => "PRD005",
-        "nama_barang" => "Jam Tangan Minimalis Kulit",
-        "deskripsi" => "Jam tangan analog desain elegan strap kulit sintetis tahan air untuk profesional muda.",
-        "harga" => 95000,
-        "jml_barang" => 12,
-        "gambar_barang" => "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=500&q=80"
-    ]
-];
-
-// Logika sederhana untuk menangani perpindahan tab tampilan antara CV dan Katalog Produk
-$page = isset($_GET['page']) ? $_GET['page'] : 'cv';
-?>
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth dark">
 <head>
@@ -86,13 +38,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'cv';
     <!-- Header / Navigasi -->
     <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="index.php?page=cv" class="font-bold text-lg tracking-tight flex items-center gap-2">
+            <a href="#beranda" onclick="switchTab('cv')" class="font-bold text-lg tracking-tight flex items-center gap-2 cursor-pointer">
                 <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></span>
                 <span>Raya Sobarul Muttaqin</span>
             </a>
             <nav class="flex items-center gap-6 font-medium text-sm">
-                <a href="index.php?page=cv" class="transition-colors hover:text-blue-400 <?php echo ($page == 'cv') ? 'text-blue-400 font-bold' : 'text-slate-300'; ?>">CV & Portofolio</a>
-                <a href="index.php?page=katalog" class="transition-colors hover:text-blue-400 <?php echo ($page == 'katalog') ? 'text-blue-400 font-bold' : 'text-slate-300'; ?>">Katalog Produk (PHP)</a>
+                <button onclick="switchTab('cv')" id="nav-cv" class="transition-colors hover:text-blue-400 text-blue-400 font-bold cursor-pointer">CV & Portofolio</button>
+                <button onclick="switchTab('katalog')" id="nav-katalog" class="transition-colors hover:text-blue-400 text-slate-300 cursor-pointer">Katalog Produk</button>
             </nav>
         </div>
     </header>
@@ -100,247 +52,362 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'cv';
     <!-- Konten Utama -->
     <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
 
-        <?php if ($page == 'cv'): ?>
-            <!-- HALAMAN CV & PORTOFOLIO -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Kolom Kiri: Foto & Info Utama -->
-                <div class="space-y-6">
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl text-center">
-                        <div class="w-48 h-48 mx-auto rounded-xl overflow-hidden border-2 border-slate-700 shadow-inner mb-4">
-                            <img id="profile-photo-img" src="Raya.jpg" alt="Foto Profil Raya Sobarul Muttaqin" class="w-full h-full object-cover">
-                        </div>
-                        <h1 class="text-2xl font-bold">Raya Sobarul Muttaqin</h1>
-                        <p class="text-blue-400 text-sm font-mono mt-1">Mahasiswa S1 Sistem Informasi</p>
-                        <p class="text-slate-400 text-xs mt-2">Universitas Gunadarma · Depok, Jawa Barat</p>
-                        
-                        <div class="mt-6 pt-6 border-t border-slate-800 flex justify-around text-center text-sm">
-                            <div>
-                                <span class="block font-bold text-slate-200">NPM</span>
-                                <span class="text-slate-400 text-xs font-mono">11124184</span>
-                            </div>
-                            <div>
-                                <span class="block font-bold text-slate-200">Status</span>
-                                <span class="text-green-400 text-xs">Aktif</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Kontak Ringkas -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3 text-sm">
-                        <h3 class="font-bold text-base text-slate-200 mb-2">Informasi Kontak</h3>
-                        <p class="text-slate-300 flex items-center gap-2">📍 Depok, Jawa Barat, Indonesia</p>
-                        <p class="text-slate-300 flex items-center gap-2">✉️ raya.sobarul@student.gunadarma.ac.id</p>
-                        <p class="text-slate-300 flex items-center gap-2">🐙 GitHub: Itsukishido-svg</p>
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan: Detail Informasi CV -->
-                <div class="lg:col-span-2 space-y-8">
-                    
-                    <!-- Tentang Saya -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>📖</span> Tentang Saya
-                        </h2>
-                        <p class="text-slate-300 leading-relaxed text-sm">
-                            Mahasiswa S1 Sistem Informasi di Universitas Gunadarma[cite: 3]. Memiliki ketertarikan mendalam pada logika pemrograman, pengembangan dasar web, serta perancangan basis data relasional. Berorientasi pada ketelitian, pemecahan masalah, dan penyelesaian tugas akademik secara terstruktur.
-                        </p>
-                    </section>
-
-                    <!-- Pendidikan -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>🎓</span> Pendidikan
-                        </h2>
-                        <div class="border-l-2 border-blue-500 pl-4 space-y-1">
-                            <h3 class="font-bold text-slate-200">Universitas Gunadarma</h3>
-                            <p class="text-xs text-blue-400 font-mono">2024 – Sekarang · S1 Sistem Informasi (Depok, Jawa Barat)</p>
-                            <p class="text-sm text-slate-300 mt-2">Fokus studi pada algoritma pemrograman, basis data, statistika, dan sistem informasi manajemen.</p>
-                        </div>
-                    </section>
-
-                    <!-- Informal / Sertifikasi -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>📜</span> Informal / Sertifikasi
-                        </h2>
-                        <ul class="space-y-3 text-sm text-slate-300">
-                            <li class="bg-slate-950/50 p-3 rounded-xl border border-slate-800/60">
-                                <strong class="text-slate-100">Sertifikat Bahasa Inggris - Conversation 2</strong>[cite: 7]
-                                <div class="text-xs text-slate-400 mt-1 flex gap-4">
-                                    <span>Lembaga: [LPIA]</span>[cite: 7]
-                                    <span>Tahun: 2026</span>[cite: 7]
-                                </div>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <!-- Skill -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>🛠️</span> Skill & Keahlian
-                        </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
-                                <h3 class="font-bold text-slate-200 mb-2">Bahasa & Komunikasi</h3>
-                                <ul class="list-disc list-inside text-slate-300 space-y-1 text-xs">
-                                    <li>ID Bahasa Indonesia <span class="text-slate-400">(Native)</span>[cite: 7]</li>
-                                    <li>GB English <span class="text-slate-400">(Conversational / Lisan & Tulisan)</span>[cite: 7]</li>
-                                </ul>
-                            </div>
-                            <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
-                                <h3 class="font-bold text-slate-200 mb-2">Programming & Technical</h3>
-                                <ul class="list-disc list-inside text-slate-300 space-y-1 text-xs">
-                                    <li>Basic Programming Concepts (Logika, Flow Control, Variabel)[cite: 7]</li>
-                                    <li>Basic Web Development (HTML, CSS, PHP)[cite: 7]</li>
-                                    <li>Basic Database (SQL / Relational Concepts)[cite: 7]</li>
-                                    <li>Version Control (Git & GitHub)[cite: 7]</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Experience -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>💼</span> Experience
-                        </h2>
-                        <div class="space-y-3 text-sm text-slate-300">
-                            <div class="border-l-2 border-slate-700 pl-4">
-                                <h3 class="font-bold text-slate-200">Fresh Graduate / Academic Focus</h3>
-                                <p class="text-xs text-slate-400 font-mono">2024 – Present</p>
-                                <p class="text-xs text-slate-300 mt-1">Berfokus pada pengembangan diri, studi akademik, serta latihan penulisan skrip dan logika pemrograman dasar[cite: 7].</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Portofolio -->
-                    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                        <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
-                            <span>🚀</span> Portofolio
-                        </h2>
-                        <ol class="space-y-4 text-sm text-slate-300 list-decimal list-inside">
-                            <li class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
-                                <strong class="text-slate-100">Sertifikat Kursus Conversation 2 Bahasa Inggris</strong>[cite: 8]
-                                <p class="text-xs text-slate-400 mt-1 pl-4">Bukti sertifikasi resmi kemampuan komunikasi bahasa Inggris tingkat lanjut (Conversation 2)[cite: 8].</p>
-                            </li>
-                            <li class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
-                                <strong class="text-slate-100">Artikel & Publikasi CV di Blog / GitHub</strong>[cite: 8]
-                                <p class="text-xs text-slate-400 mt-1 pl-4">Publikasi profil profesional dan penugasan akademik yang diunggah secara publik di halaman repository GitHub pribadi[cite: 8].</p>
-                            </li>
-                        </ol>
-                    </section>
-
-                </div>
-            </div>
-
-        <?php else: ?>
-            <!-- HALAMAN KATALOG PRODUK (PHP) -->
+        <!-- HALAMAN CV & PORTOFOLIO -->
+        <div id="section-cv" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Kolom Kiri: Foto & Info Utama -->
             <div class="space-y-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div>
-                        <h1 class="text-2xl font-bold flex items-center gap-2">
-                            <span>🛍️</span> Katalog Produk Fashion & Kebutuhan Akademik
-                        </h1>
-                        <p class="text-slate-400 text-sm mt-1">Data ditampilkan secara dinamis menggunakan pemrosesan array PHP (Minimal 5 Produk Logis).</p>
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl text-center">
+                    <div class="w-48 h-48 mx-auto rounded-xl overflow-hidden border-2 border-slate-700 shadow-inner mb-4">
+                        <img id="profile-photo-img" src="Raya.jpg" alt="Foto Profil Raya Sobarul Muttaqin" class="w-full h-full object-cover">
                     </div>
-                    <a href="index.php?page=cv" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
-                        &larr; Kembali ke CV
-                    </a>
-                </div>
-
-                <!-- Grid Katalog Produk -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <?php foreach ($katalog_produk as $produk): ?>
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
-                            <div>
-                                <div class="h-48 overflow-hidden bg-slate-950 relative">
-                                    <img src="<?php echo $produk['gambar_barang']; ?>" alt="<?php echo $produk['nama_barang']; ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                    <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">
-                                        <?php echo $produk['id_barang']; ?>
-                                    </span>
-                                </div>
-                                <div class="p-5 space-y-2">
-                                    <h3 class="font-bold text-lg text-slate-100"><?php echo $produk['nama_barang']; ?></h3>
-                                    <p class="text-slate-400 text-xs leading-relaxed"><?php echo $produk['deskripsi']; ?></p>
-                                </div>
-                            </div>
-                            <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
-                                <div>
-                                    <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
-                                    <span class="text-blue-400 font-bold text-base">Rp <?php echo number_format($produk['harga'], 0, ',', '.'); ?></span>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
-                                    <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">
-                                        <?php echo $produk['jml_barang']; ?> pcs
-                                    </span>
-                                </div>
-                            </div>
+                    <h1 class="text-2xl font-bold">Raya Sobarul Muttaqin</h1>
+                    <p class="text-blue-400 text-sm font-mono mt-1">Mahasiswa S1 Sistem Informasi</p>
+                    <p class="text-slate-400 text-xs mt-2">Universitas Gunadarma · Depok, Jawa Barat</p>
+                    
+                    <div class="mt-6 pt-6 border-t border-slate-800 flex justify-around text-center text-sm">
+                        <div>
+                            <span class="block font-bold text-slate-200">NPM</span>
+                            <span class="text-slate-400 text-xs font-mono">11124184</span>
                         </div>
-                    <?php endforeach; ?>
+                        <div>
+                            <span class="block font-bold text-slate-200">Status</span>
+                            <span class="text-green-400 text-xs">Aktif</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Keterangan Tabel Struktur Database Pendukung sesuai Papan Tulis -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl mt-8">
-                    <h3 class="font-bold text-base text-slate-200 mb-3 flex items-center gap-2">
-                        <span>📊</span> Skema Tabel Database Produk (Referensi Papan Tulis)
-                    </h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm text-slate-300 border-collapse">
-                            <thead>
-                                <tr class="border-b border-slate-800 text-slate-400 font-mono text-xs">
-                                    <th class="py-3 px-4">Atribut</th>
-                                    <th class="py-3 px-4">Tipe Data</th>
-                                    <th class="py-3 px-4">Keterangan</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-800/60 text-xs font-mono">
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">id_barang</td>
-                                    <td class="py-3 px-4">VARCHAR / INT</td>
-                                    <td class="py-3 px-4 text-slate-400">Primary Key unik pengenal produk</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">nama_barang</td>
-                                    <td class="py-3 px-4">VARCHAR</td>
-                                    <td class="py-3 px-4 text-slate-400">Nama deskriptif produk fashion/kebutuhan</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">deskripsi_barang</td>
-                                    <td class="py-3 px-4">TEXT</td>
-                                    <td class="py-3 px-4 text-slate-400">Penjelasan rinci spesifikasi produk</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">harga_barang</td>
-                                    <td class="py-3 px-4">DECIMAL / INT</td>
-                                    <td class="py-3 px-4 text-slate-400">Nominal harga satuan produk</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">jml_barang</td>
-                                    <td class="py-3 px-4">INT</td>
-                                    <td class="py-3 px-4 text-slate-400">Jumlah kuantitas stok barang masuk/keluar</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-4 font-bold text-blue-400">gambar_barang</td>
-                                    <td class="py-3 px-4">VARCHAR</td>
-                                    <td class="py-3 px-4 text-slate-400">Path atau URL aset gambar produk</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Kontak Ringkas -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-3 text-sm">
+                    <h3 class="font-bold text-base text-slate-200 mb-2">Informasi Kontak</h3>
+                    <p class="text-slate-300 flex items-center gap-2">📍 Depok, Jawa Barat, Indonesia</p>
+                    <p class="text-slate-300 flex items-center gap-2">✉️ raya.sobarul@student.gunadarma.ac.id</p>
+                    <p class="text-slate-300 flex items-center gap-2">🐙 GitHub: Itsukishido-svg</p>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan: Detail Informasi CV -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Tentang Saya -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>📖</span> Tentang Saya
+                    </h2>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        Mahasiswa S1 Sistem Informasi di Universitas Gunadarma[cite: 3]. Memiliki ketertarikan mendalam pada logika pemrograman, pengembangan dasar web, serta perancangan basis data relasional. Berorientasi pada ketelitian, pemecahan masalah, dan penyelesaian tugas akademik secara terstruktur.
+                    </p>
+                </section>
+
+                <!-- Pendidikan -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>🎓</span> Pendidikan
+                    </h2>
+                    <div class="border-l-2 border-blue-500 pl-4 space-y-1">
+                        <h3 class="font-bold text-slate-200">Universitas Gunadarma</h3>
+                        <p class="text-xs text-blue-400 font-mono">2024 – Sekarang · S1 Sistem Informasi (Depok, Jawa Barat)</p>
+                        <p class="text-sm text-slate-300 mt-2">Fokus studi pada algoritma pemrograman, basis data, statistika, dan sistem informasi manajemen.</p>
+                    </div>
+                </section>
+
+                <!-- Informal / Sertifikasi -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>📜</span> Informal / Sertifikasi
+                    </h2>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="bg-slate-950/50 p-3 rounded-xl border border-slate-800/60">
+                            <strong class="text-slate-100">Sertifikat Bahasa Inggris - Conversation 2</strong>[cite: 7]
+                            <div class="text-xs text-slate-400 mt-1 flex gap-4">
+                                <span>Lembaga: [LPIA]</span>[cite: 7]
+                                <span>Tahun: 2026</span>[cite: 7]
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Skill -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>🛠️</span> Skill & Keahlian
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
+                            <h3 class="font-bold text-slate-200 mb-2">Bahasa & Komunikasi</h3>
+                            <ul class="list-disc list-inside text-slate-300 space-y-1 text-xs">
+                                <li>ID Bahasa Indonesia <span class="text-slate-400">(Native)</span>[cite: 7]</li>
+                                <li>GB English <span class="text-slate-400">(Conversational / Lisan & Tulisan)</span>[cite: 7]</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
+                            <h3 class="font-bold text-slate-200 mb-2">Programming & Technical</h3>
+                            <ul class="list-disc list-inside text-slate-300 space-y-1 text-xs">
+                                <li>Basic Programming Concepts (Logika, Flow Control, Variabel)[cite: 7]</li>
+                                <li>Basic Web Development (HTML, CSS, PHP)[cite: 7]</li>
+                                <li>Basic Database (SQL / Relational Concepts)[cite: 7]</li>
+                                <li>Version Control (Git & GitHub)[cite: 7]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Experience -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>💼</span> Experience
+                    </h2>
+                    <div class="space-y-3 text-sm text-slate-300">
+                        <div class="border-l-2 border-slate-700 pl-4">
+                            <h3 class="font-bold text-slate-200">Fresh Graduate / Academic Focus</h3>
+                            <p class="text-xs text-slate-400 font-mono">2024 – Present</p>
+                            <p class="text-xs text-slate-300 mt-1">Berfokus pada pengembangan diri, studi akademik, serta latihan penulisan skrip dan logika pemrograman dasar[cite: 7].</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Portofolio -->
+                <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-lg font-bold flex items-center gap-2 text-blue-400 mb-4">
+                        <span>🚀</span> Portofolio
+                    </h2>
+                    <ol class="space-y-4 text-sm text-slate-300 list-decimal list-inside">
+                        <li class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
+                            <strong class="text-slate-100">Sertifikat Kursus Conversation 2 Bahasa Inggris</strong>[cite: 8]
+                            <p class="text-xs text-slate-400 mt-1 pl-4">Bukti sertifikasi resmi kemampuan komunikasi bahasa Inggris tingkat lanjut (Conversation 2)[cite: 8].</p>
+                        </li>
+                        <li class="bg-slate-950/50 p-4 rounded-xl border border-slate-800/60">
+                            <strong class="text-slate-100">Artikel & Publikasi CV di Blog / GitHub</strong>[cite: 8]
+                            <p class="text-xs text-slate-400 mt-1 pl-4">Publikasi profil profesional dan penugasan akademik yang diunggah secara publik di halaman repository GitHub pribadi[cite: 8].</p>
+                        </li>
+                    </ol>
+                </section>
+
+            </div>
+        </div>
+
+        <!-- HALAMAN KATALOG PRODUK -->
+        <div id="section-katalog" class="space-y-6 hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div>
+                    <h1 class="text-2xl font-bold flex items-center gap-2">
+                        <span>🛍️</span> Katalog Produk Fashion & Kebutuhan Akademik
+                    </h1>
+                    <p class="text-slate-400 text-sm mt-1">Data ditampilkan secara interaktif pada website (Minimal 5 Produk Logis).</p>
+                </div>
+                <button onclick="switchTab('cv')" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-blue-500/20 cursor-pointer">
+                    &larr; Kembali ke CV
+                </button>
+            </div>
+
+            <!-- Grid Katalog Produk -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Produk 1 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-950 relative">
+                            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=500&q=80" alt="Kemeja Formal Putih Pria" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">PRD001</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-bold text-lg text-slate-100">Kemeja Formal Putih Pria</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">Kemeja kerja formal lengan panjang bahan katun premium, nyaman untuk kuliah dan magang.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
+                            <span class="text-blue-400 font-bold text-base">Rp 135.000</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
+                            <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">25 pcs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 2 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-950 relative">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=80" alt="Tas Ransel Laptop Casual" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">PRD002</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-bold text-lg text-slate-100">Tas Ransel Laptop Casual</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">Tas punggung muat laptop 15.6 inch dilengkapi slot USB charger, cocok untuk mahasiswa.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
+                            <span class="text-blue-400 font-bold text-base">Rp 220.000</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
+                            <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">15 pcs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 3 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-950 relative">
+                            <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=500&q=80" alt="Sepatu Sneakers Hitam Polos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">PRD003</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-bold text-lg text-slate-100">Sepatu Sneakers Hitam Polos</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">Sneakers kanvas ringan dan tahan lama untuk aktivitas harian kampus maupun santai.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
+                            <span class="text-blue-400 font-bold text-base">Rp 185.000</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
+                            <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">30 pcs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 4 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-950 relative">
+                            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=500&q=80" alt="Jaket Hoodie Fleece Hitam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">PRD004</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-bold text-lg text-slate-100">Jaket Hoodie Fleece Hitam</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">Hoodie fleece tebal dan lembut, menjaga tubuh tetap hangat saat lembur ngoding malam.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
+                            <span class="text-blue-400 font-bold text-base">Rp 150.000</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
+                            <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">20 pcs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 5 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between group hover:border-slate-700 transition-all">
+                    <div>
+                        <div class="h-48 overflow-hidden bg-slate-950 relative">
+                            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=500&q=80" alt="Jam Tangan Minimalis Kulit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-blue-400 text-xs font-mono font-bold px-3 py-1 rounded-full border border-slate-800">PRD005</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-bold text-lg text-slate-100">Jam Tangan Minimalis Kulit</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">Jam tangan analog desain elegan strap kulit sintetis tahan air untuk profesional muda.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 border-t border-slate-800/60 mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Harga</span>
+                            <span class="text-blue-400 font-bold text-base">Rp 95.000</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 font-mono uppercase">Stok Barang</span>
+                            <span class="text-slate-200 font-bold text-sm bg-slate-800 px-2.5 py-1 rounded-lg">12 pcs</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+
+            <!-- Keterangan Skema Tabel Database sesuai Papan Tulis -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl mt-8">
+                <h3 class="font-bold text-base text-slate-200 mb-3 flex items-center gap-2">
+                    <span>📊</span> Skema Tabel Database Produk (Referensi Papan Tulis)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300 border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-400 font-mono text-xs">
+                                <th class="py-3 px-4">Atribut</th>
+                                <th class="py-3 px-4">Tipe Data</th>
+                                <th class="py-3 px-4">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/60 text-xs font-mono">
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">id_barang</td>
+                                <td class="py-3 px-4">VARCHAR / INT</td>
+                                <td class="py-3 px-4 text-slate-400">Primary Key unik pengenal produk</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">nama_barang</td>
+                                <td class="py-3 px-4">VARCHAR</td>
+                                <td class="py-3 px-4 text-slate-400">Nama deskriptif produk fashion/kebutuhan</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">deskripsi_barang</td>
+                                <td class="py-3 px-4">TEXT</td>
+                                <td class="py-3 px-4 text-slate-400">Penjelasan rinci spesifikasi produk</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">harga_barang</td>
+                                <td class="py-3 px-4">DECIMAL / INT</td>
+                                <td class="py-3 px-4 text-slate-400">Nominal harga satuan produk</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">jml_barang</td>
+                                <td class="py-3 px-4">INT</td>
+                                <td class="py-3 px-4 text-slate-400">Jumlah kuantitas stok barang masuk/keluar</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-bold text-blue-400">gambar_barang</td>
+                                <td class="py-3 px-4">VARCHAR</td>
+                                <td class="py-3 px-4 text-slate-400">Path atau URL aset gambar produk</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-950 py-6 mt-12">
         <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
-            &copy; 2026 Raya Sobarul Muttaqin — Universitas Gunadarma. Dibuat dengan PHP & Tailwind CSS.
+            &copy; 2026 Raya Sobarul Muttaqin — Universitas Gunadarma. Dibuat dengan Tailwind CSS & Vercel.
         </div>
     </footer>
 
+    <!-- Script JavaScript Pengganti Navigasi Tab -->
+    <script>
+        function switchTab(tab) {
+            const sectionCv = document.getElementById('section-cv');
+            const sectionKatalog = document.getElementById('section-katalog');
+            const navCv = document.getElementById('nav-cv');
+            const navKatalog = document.getElementById('nav-katalog');
+
+            if (tab === 'cv') {
+                sectionCv.classList.remove('hidden');
+                sectionKatalog.classList.add('hidden');
+                navCv.classList.add('text-blue-400', 'font-bold');
+                navCv.classList.remove('text-slate-300');
+                navKatalog.classList.remove('text-blue-400', 'font-bold');
+                navKatalog.classList.add('text-slate-300');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                sectionCv.classList.add('hidden');
+                sectionKatalog.classList.remove('hidden');
+                navKatalog.classList.add('text-blue-400', 'font-bold');
+                navKatalog.classList.remove('text-slate-300');
+                navCv.classList.remove('text-blue-400', 'font-bold');
+                navCv.classList.add('text-slate-300');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    </script>
 </body>
 </html>
